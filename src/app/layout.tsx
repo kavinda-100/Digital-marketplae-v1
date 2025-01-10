@@ -1,9 +1,10 @@
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import React from "react";
 import "@/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import React from "react";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Digital Hub",
@@ -15,23 +16,25 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${GeistSans.variable} antialiased`}
-      suppressHydrationWarning
-    >
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className={"container mx-auto min-h-screen p-2"}>
-            {children}
-          </main>
-        </ThemeProvider>
-      </body>
-    </html>
+    <AuthProvider>
+      <html
+        lang="en"
+        className={`${GeistSans.variable} antialiased`}
+        suppressHydrationWarning
+      >
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className={"container mx-auto min-h-screen p-2"}>
+              {children}
+            </main>
+          </ThemeProvider>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
