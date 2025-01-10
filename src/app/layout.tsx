@@ -5,6 +5,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
+import Header from "../components/Header";
 
 export const metadata: Metadata = {
   title: "Digital Hub",
@@ -30,6 +31,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <main className={"container mx-auto min-h-screen p-2"}>
+              <Header role={"SELLER"} />
               {children}
             </main>
           </ThemeProvider>
