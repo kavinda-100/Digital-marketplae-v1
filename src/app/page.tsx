@@ -7,6 +7,7 @@ import { getUserBuId } from "@/apiFile";
 import Link from "next/link";
 import { Atom } from "lucide-react";
 import ButtonRotatingBackgroundGradient from "@/components/ButtonRotatingBackgroundGradient";
+import PriceSection from "../sections/PriceSection";
 
 export default async function HomePage() {
   const { getUser } = getKindeServerSession();
@@ -15,6 +16,7 @@ export default async function HomePage() {
   const data = await getUserBuId({ userId: user?.id });
   return (
     <section className={"container mx-auto"}>
+      {/* hero section */}
       <section className={"mx-auto mt-20 max-w-2xl"}>
         {/*<div*/}
         {/*    className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>*/}
@@ -75,6 +77,10 @@ export default async function HomePage() {
           )}
         </div>
       </section>
+      {/*  card section */}
+
+      {/*  pricing section */}
+      <PriceSection />
     </section>
   );
 }
