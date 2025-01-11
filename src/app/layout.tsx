@@ -1,11 +1,21 @@
 import React from "react";
 import "@/styles/globals.css";
-
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+// providers
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
+// kinde auth
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { getUserBuId } from "@/apiFile";
+// uploadthing
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
+// components
+import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Digital Hub",
@@ -13,9 +23,13 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  const data = await getUserBuId({ userId: user?.id });
   return (
     <AuthProvider>
       <html
@@ -24,6 +38,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <body>
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -31,8 +46,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <main className={"container mx-auto min-h-screen p-2"}>
-              <Header role={"SELLER"} />
+              <Header role={data?.role ?? "SELLER"} />
               {children}
+              <Footer />
+              <Toaster richColors closeButton />
             </main>
           </ThemeProvider>
         </body>
