@@ -1,5 +1,5 @@
 import { BadgeDollarSign, LayoutDashboard, ShoppingCart } from "lucide-react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type sellerNavType = {
   name: string;
