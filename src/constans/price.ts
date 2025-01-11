@@ -1,3 +1,5 @@
+import { env } from "@/env";
+
 export type PricingDetailType = {
   id: number;
   title: string;
@@ -7,6 +9,7 @@ export type PricingDetailType = {
     name: string;
   }[];
   type: "basic" | "pro" | "enterprise";
+  link: string;
 };
 
 export const PricingDetails: PricingDetailType[] = [
@@ -26,6 +29,7 @@ export const PricingDetails: PricingDetailType[] = [
       { name: "1GB file storage" },
     ],
     type: "basic",
+    link: "#",
   },
   {
     id: 2,
@@ -44,6 +48,7 @@ export const PricingDetails: PricingDetailType[] = [
       { name: "Advanced sales insights" },
     ],
     type: "pro",
+    link: env.NEXT_PUBLIC_STRIPE_MONTHLY_PRO_LINK,
   },
   {
     id: 3,
@@ -62,5 +67,6 @@ export const PricingDetails: PricingDetailType[] = [
       { name: "Advanced analytics and marketing tools" },
     ],
     type: "enterprise",
+    link: env.NEXT_PUBLIC_STRIPE_MONTHLY_ENTERPRISE_LINK,
   },
 ];

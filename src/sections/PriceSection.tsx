@@ -30,6 +30,7 @@ const PriceSection = () => {
             isMostPopular={price.isMostPopular}
             features={price.features}
             type={price.type}
+            link={price.link}
           />
         ))}
       </div>

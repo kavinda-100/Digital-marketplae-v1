@@ -17,6 +17,7 @@ type PricingCardProps = {
   isMostPopular: boolean;
   features: { name: string }[];
   type: "basic" | "pro" | "enterprise";
+  link: string;
 };
 
 const PricingCard = ({
@@ -26,6 +27,7 @@ const PricingCard = ({
   isMostPopular,
   features,
   type,
+  link,
 }: PricingCardProps) => {
   console.log(id, "id");
   return (
@@ -55,7 +57,7 @@ const PricingCard = ({
       </CardContent>
       <CardFooter className={"flex w-full flex-col gap-3"}>
         <div className={"border-t-1 w-full border"} />
-        <PricingButton type={type} />
+        <PricingButton type={type} link={link} />
       </CardFooter>
     </Card>
   );
