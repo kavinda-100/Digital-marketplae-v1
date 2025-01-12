@@ -104,7 +104,9 @@ const Header = ({ role }: HeaderProps) => {
               <DropdownMenuTrigger asChild>
                 <Avatar className={"cursor-pointer"}>
                   <AvatarImage src={user.picture ?? ""} />
-                  <AvatarFallback>{randomLetter()}</AvatarFallback>
+                  <AvatarFallback>
+                    {user?.given_name?.charAt(0) ?? randomLetter()}
+                  </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -170,7 +172,9 @@ const MobileHeader = ({ role }: { role: Role | undefined }) => {
           <div className={"my-3 flex items-center justify-center gap-3"}>
             <Avatar>
               <AvatarImage src={user?.picture ?? ""} />
-              <AvatarFallback>{randomLetter()}</AvatarFallback>
+              <AvatarFallback>
+                {user?.given_name?.charAt(0) ?? randomLetter()}
+              </AvatarFallback>
             </Avatar>
             <SheetTitle className={"text-primary/50"}>
               Digital <span className={"text-primary"}>Hub</span>
