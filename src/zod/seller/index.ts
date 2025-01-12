@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const ProductSchema = z.object({
-  sellerId: z.string({ message: "Seller ID is required" }),
   name: z.string({ message: "Name is required" }),
   shortDescription: z.string({ message: "Short description is required" }),
   longDescription: z.string({ message: "Long description is required" }),
