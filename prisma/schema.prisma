@@ -33,6 +33,7 @@ model User {
     profilePic String?
     StripeId  String?
     onBoarding OnBoarding?
+    subscription Subscription?
     products  Product[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -78,10 +79,11 @@ model Thumbnail {
 
 model Subscription {
     id        String   @id @default(cuid())
-    kindUserId    String
+    kindUserId    String @unique
     plan      Plan
-    startDate String?
-    endDate   String?
+    startDate DateTime?
+    endDate   DateTime?
+    user      User   @relation(fields: [kindUserId], references: [kindUserId])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

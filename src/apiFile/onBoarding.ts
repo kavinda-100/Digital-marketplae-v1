@@ -18,7 +18,6 @@ export const checkIsFinishedOnBoarding = async (kindUserId: string) => {
 };
 
 //* axios request for onboarding
-
 export async function crateOnBoarding(data: z.infer<typeof onBoardingSchema>) {
   try {
     const response = await Api.post("/onboarding", data);

@@ -1,7 +1,6 @@
 import z from "zod";
 
 export const onBoardingSchema = z.object({
-  kindUserId: z.string({ message: "Kind user id is required" }),
   role: z.enum(["USER", "SELLER", "ADMIN"], {
     message: "Role is required and must be either USER or SELLER",
   }),

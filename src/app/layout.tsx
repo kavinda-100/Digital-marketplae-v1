@@ -5,6 +5,7 @@ import { type Metadata } from "next";
 // providers
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { TanStackQueryProvider } from "../providers/TanStackQueryProvider";
 // kinde auth
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { getUserBuId } from "@/apiFile";
@@ -46,10 +47,12 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <main className={"container mx-auto min-h-screen p-2"}>
-              <Header role={data?.role ?? "SELLER"} />
-              {children}
-              <Footer />
-              <Toaster richColors closeButton />
+              <TanStackQueryProvider>
+                <Header role={data?.role ?? "SELLER"} />
+                {children}
+                <Footer />
+                <Toaster richColors closeButton />
+              </TanStackQueryProvider>
             </main>
           </ThemeProvider>
         </body>
