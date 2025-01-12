@@ -16,14 +16,14 @@ const DashboardLayout = async ({
   const role = await getUserBuId({ userId: user.id });
   return (
     <section className={"container mx-auto flex min-h-screen gap-3"}>
-      <section className={"hidden gap-3 md:flex"}>
+      <section className={"hidden w-full gap-3 md:flex"}>
         <DashboardSideBar role={role?.role ?? "SELLER"} />
-        <section className={"h-full w-full"}>{children}</section>
+        {children}
       </section>
       {/* mobile version */}
-      <section className={"flex flex-col gap-3 md:hidden"}>
+      <section className={"flex w-full flex-col gap-3 md:hidden"}>
         <DashboardSideBarMobile role={role?.role ?? "SELLER"} />
-        <section className={"h-full w-full"}>{children}</section>
+        {children}
       </section>
     </section>
   );
