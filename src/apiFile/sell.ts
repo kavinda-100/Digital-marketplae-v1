@@ -24,7 +24,7 @@ export const createProduct = async (product: z.infer<typeof ProductSchema>) => {
   }
 };
 
-export const getProductsByUserId = async ({
+export const getUsersProducts = async ({
   kindUserId,
   type,
 }: {
