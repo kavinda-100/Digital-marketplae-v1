@@ -81,7 +81,7 @@ const ProductCard = ({
         {isOwner && (
           <div className={"flex w-full justify-end gap-3"}>
             <Button asChild variant={"secondary"} size={"icon"}>
-              <Link href={`/product/${id}/edit`}>
+              <Link href={`/dashboard/seller/product/${id}/edit`}>
                 <Pencil className={"size-4"} />
               </Link>
             </Button>
