@@ -85,5 +85,5 @@
 }
 
 .tiptap strong {
-  @apply bg-background text-foreground;
+  @apply bg-background text-foreground text-xl;
 }

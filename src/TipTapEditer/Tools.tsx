@@ -75,10 +75,10 @@ type ToolNameType = (typeof tools)[number]["name"];
 
 const Tools = ({ editor }: ToolProps) => {
   const handleToolClick = (name: ToolNameType) => {
-    if (editor === null) {
-      console.log("Editor is null");
-      return;
-    }
+    // if (editor === null) {
+    //   console.log("Editor is null");
+    //   return;
+    // }
     switch (name) {
       case "bold":
         editor?.chain().focus().toggleBold().run();
@@ -123,7 +123,7 @@ const Tools = ({ editor }: ToolProps) => {
         return (
           <ToolButton
             active={
-              editor?.isActive(tool.name) ??
+              editor?.isActive(tool.name) ||
               editor?.isActive({ textAlign: tool.name })
             }
             onClick={() => handleToolClick(tool.name)}

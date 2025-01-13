@@ -31,8 +31,10 @@ import { UploadDropzone } from "@/lib/uploadthing";
 import SubmitButton from "@/components/SubmitButton";
 import { Textarea } from "@/components/ui/textarea";
 import ProductType from "@/components/ProductType";
+import { useRouter } from "next/navigation";
 
 const SellerSellPage = () => {
+  const router = useRouter();
   const [productType, setProductType] = React.useState<
     "ICONS" | "UIKITS" | "TEMPLATES"
   >("TEMPLATES");
@@ -56,7 +58,7 @@ const SellerSellPage = () => {
       createProduct(product),
     onSuccess: (data) => {
       toast.success(data.message || "Product created");
-      window.location.href = "/dashboard/seller/product";
+      router.push("/dashboard/seller/product");
     },
     onError: (error) => {
       console.log("Error creating product: ", error);
@@ -67,7 +69,7 @@ const SellerSellPage = () => {
   function onSubmit(values: z.infer<typeof ProductSchema>) {
     const price = Number(values.price);
     if (isNaN(price) || price <= 0) {
-      alert("Price must be a positive number");
+      toast.error("Price must be a positive number");
       return;
     }
     values.price = price.toString();
