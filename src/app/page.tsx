@@ -8,6 +8,9 @@ import Link from "next/link";
 import { Atom } from "lucide-react";
 import ButtonRotatingBackgroundGradient from "@/components/ButtonRotatingBackgroundGradient";
 import PriceSection from "../sections/PriceSection";
+import { Suspense } from "react";
+import ProductCardSkeleton from "@/skeletons/ProductCardSkeleton";
+import SingleTypeProductCards from "@/components/SingleTypeProductCards";
 
 export default async function HomePage() {
   const { getUser } = getKindeServerSession();
@@ -78,6 +81,37 @@ export default async function HomePage() {
         </div>
       </section>
       {/*  card section */}
+      <section
+        className={"flex w-full flex-col items-center justify-center gap-4"}
+      >
+        <Suspense fallback={<ProductCardSkeleton />}>
+          <SingleTypeProductCards
+            type={"TEMPLATES"}
+            heading={"Templates"}
+            isHome={true}
+            limit={3}
+            href={"templates"}
+          />
+        </Suspense>
+        <Suspense fallback={<ProductCardSkeleton />}>
+          <SingleTypeProductCards
+            type={"UIKITS"}
+            heading={"UI KITS"}
+            isHome={true}
+            limit={3}
+            href={"ui"}
+          />
+        </Suspense>
+        <Suspense fallback={<ProductCardSkeleton />}>
+          <SingleTypeProductCards
+            type={"ICONS"}
+            heading={"ICONS"}
+            isHome={true}
+            limit={3}
+            href={"icons"}
+          />
+        </Suspense>
+      </section>
 
       {/*  pricing section */}
       <PriceSection />

@@ -75,7 +75,7 @@ export const getProductsByType = async ({
         },
       },
     },
-    take: limit,
+    take: limit ?? 9,
     orderBy: {
       createdAt: "desc",
     },
