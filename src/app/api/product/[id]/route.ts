@@ -92,15 +92,10 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
   try {
-    const body: unknown = await req.json();
     const id = (await params).id;
     console.log("params id", id);
-    console.log("body arrived", body);
     // if params.id is not a provided, return an error
     if (!id) {
       return NextResponse.json(

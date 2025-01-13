@@ -13,19 +13,41 @@ import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
-import { deleteProduct } from "../apiFile/product";
+import { DeleteProductAction } from "../actions/prodcutActions";
 
 const DeleteProduct = ({ productId }: { productId: string }) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  console.log(`DeleteProduct: ${productId}`);
+
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: async (Id: string) => deleteProduct(Id),
+  //   onSuccess: () => {
+  //     toast.success("Product deleted");
+  //     setIsOpen(false);
+  //   },
+  //   onError: (error) => {
+  //     toast.error(error?.message || "An error occurred");
+  //     setIsOpen(false);
+  //   },
+  // });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (Id: string) => deleteProduct(Id),
-    onSuccess: () => {
-      toast.success("Product deleted");
-      setIsOpen(false);
+    mutationFn: async (Id: string) => DeleteProductAction({ id: productId }),
+    onSuccess: (res) => {
+      if (res.success) {
+        toast.success(res.message);
+        setIsOpen(false);
+      }
+      if (!res.success) {
+        toast.error(res.message);
+        setIsOpen(false);
+      }
     },
     onError: (error) => {
-      toast.error(error?.message || "An error occurred");
+      toast.error(
+        error?.message || "An error occurred while deleting the product",
+      );
+      setIsOpen(false);
     },
   });
   return (

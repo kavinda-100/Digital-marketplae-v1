@@ -32,6 +32,7 @@ const ProductCard = ({
   name,
   isOwner,
 }: ProductCardProps) => {
+  console.log(`ProductCard: ${id} - ${name}`);
   return (
     <div className={"w-full min-w-[280px] rounded-lg shadow-sm"}>
       <div
