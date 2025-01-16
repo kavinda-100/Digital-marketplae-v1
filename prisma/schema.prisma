@@ -35,6 +35,7 @@ model User {
     onBoarding OnBoarding?
     subscription Subscription?
     products  Product[]
+    orders    Order[] // if only user is seller
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -62,6 +63,7 @@ model Product {
     productType     ProductType
     thumbnail      Thumbnail[]
     productUrl     String
+    order         Order[]
     seller      User        @relation(fields: [sellerId], references: [kindUserId])
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
@@ -87,3 +89,38 @@ model Subscription {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
+
+enum OrderStatus {
+    PENDING
+    COMPLETED
+    CANCELLED
+}
+
+model Order{
+    id        String   @id @default(cuid())
+    sellerId  String // who is selling the product
+    userId    String // who is buying the product
+    productId String // which product is being bought
+    amount    Float
+    isPaid    Boolean @default(false)
+    status    OrderStatus @default(PENDING)
+    shippingDetails ShippingDetails?
+    product   Product @relation(fields: [productId], references: [id])
+    seller    User   @relation(fields: [sellerId], references: [kindUserId])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model ShippingDetails {
+    id        String   @id @default(cuid())
+    orderId   String  @unique
+    address   String
+    city      String
+    state     String?
+    postalCode String
+    country   String
+    order     Order @relation(fields: [orderId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+

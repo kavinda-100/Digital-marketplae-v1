@@ -15,6 +15,8 @@ export const env = createEnv({
     KINDE_POST_LOGIN_REDIRECT_URL: z.string().url(),
     DOMAIN_NAME: z.string().min(2).url(),
     UPLOADTHING_TOKEN: z.string().min(2),
+    STRIPE_SECRET_KEY: z.string().min(2),
+    STRIPE_WEBHOOK_SECRET_KEY: z.string().min(2),
   },
   client: {
     NEXT_PUBLIC_STRIPE_MONTHLY_PRO_LINK: z.string().url(),
@@ -41,6 +43,8 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_STRIPE_MONTHLY_ENTERPRISE_LINK,
     NEXT_PUBLIC_STRIPE_MONTHLY_ENTERPRICE_PRICE_ID:
       process.env.NEXT_PUBLIC_STRIPE_MONTHLY_ENTERPRICE_PRICE_ID,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET_KEY: process.env.STRIPE_WEBHOOK_SECRET_KEY,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,
