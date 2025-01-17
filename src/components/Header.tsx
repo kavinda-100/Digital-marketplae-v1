@@ -116,7 +116,9 @@ const Header = ({ role }: HeaderProps) => {
                   <Link href={"/profile"}>Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={"/product/orders/my"}>My Orders</Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className={"font-bold"}>
                   <LogoutLink>Sign out</LogoutLink>

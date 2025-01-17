@@ -16,6 +16,7 @@ import { getSingleOrderProductByID } from "../../../actions/prodcutActions";
 import { toast } from "sonner";
 import { cn } from "../../../lib/utils";
 import { Button } from "../../../components/ui/button";
+import Link from "next/link";
 
 const SuccessPage = () => {
   const [enabled, setEnabled] = React.useState(false);
@@ -153,7 +154,9 @@ const SuccessPage = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button variant={"secondary"}>View My All Products</Button>
+              <Button variant={"secondary"} asChild>
+                <Link href={"/product/orders/my"}>View My All Products</Link>
+              </Button>
             </CardFooter>
           </Card>
         )}
