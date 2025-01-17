@@ -43,3 +43,31 @@ export async function DeleteProductAction({ id }: { id: string }) {
     return { success: false, message: "Internal Server Error" };
   }
 }
+
+export async function getSingleOrderProductByID({
+  productId,
+}: {
+  productId: string;
+}) {
+  try {
+    const order = await prisma.order.findUnique({
+      where: {
+        productId: productId,
+      },
+      select: {
+        amount: true,
+        status: true,
+        shippingDetails: true,
+        product: true,
+      },
+    });
+    if (!order) {
+      new Error("order not found");
+      return;
+    }
+    return order;
+  } catch (e: Error | any) {
+    console.log("Error in getSingleOrderProductByID action", e);
+    throw new Error(e.message || "Internal Server Error");
+  }
+}

@@ -4,10 +4,30 @@ import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { CircleDollarSign } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getSingleOrderProductByID } from "../../../actions/prodcutActions";
+import { toast } from "sonner";
 
 const SuccessPage = () => {
   const searchParams = useSearchParams();
   const productId = searchParams?.get("order_id") ?? "";
+
+  React.useEffect(() => {
+    if (!productId) {
+      toast.error("product id not found");
+    }
+  }, [productId]);
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["order", productId],
+    queryFn: async () => {
+      return await getSingleOrderProductByID({ productId });
+    },
+  });
+
+  if (error) {
+    toast.error(error.message ?? "Error fetching order");
+  }
 
   return (
     <section className={"container mx-auto flex items-center justify-center"}>

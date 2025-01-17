@@ -100,7 +100,7 @@ model Order{
     id        String   @id @default(cuid())
     sellerId  String // who is selling the product
     userId    String // who is buying the product
-    productId String // which product is being bought
+    productId String @unique // which product is being bought
     amount    Float
     isPaid    Boolean @default(false)
     status    OrderStatus @default(PENDING)
