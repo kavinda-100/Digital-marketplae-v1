@@ -75,7 +75,7 @@ const TimeZoneClock = () => {
     .replace("pm", "PM");
 
   return (
-    <Card className={"max-w-[400px]"}>
+    <Card className={"min-w-[300px]"}>
       <CardHeader>
         <CardTitle>Time Zone Clock</CardTitle>
       </CardHeader>
@@ -100,7 +100,7 @@ const TimeZoneClock = () => {
       </CardContent>
       <CardFooter>
         <div>
-          <h2 className={"text-md font-medium"}>
+          <h2 className={"text-md font-medium text-muted-foreground"}>
             Current Time in:{" "}
             <span className={"font-bold text-primary"}>
               {timeZones.find((zone) => zone.value === value)?.label}
