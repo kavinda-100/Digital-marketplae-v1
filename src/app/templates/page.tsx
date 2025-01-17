@@ -9,6 +9,7 @@ const TemplatePage = async () => {
   if (!user) {
     return <RedirectPage />;
   }
+
   return (
     <section className={"container mx-auto min-h-[calc(100vh-10vh)] p-2"}>
       <SingleTypeProductCards
