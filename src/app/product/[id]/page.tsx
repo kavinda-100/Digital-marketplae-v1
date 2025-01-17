@@ -10,10 +10,10 @@ import {
   CarouselPrevious,
 } from "../../../components/ui/carousel";
 import { formatCurrency } from "../../../lib/utils";
-import { Button } from "../../../components/ui/button";
 import TipTapEditorForm from "../../../TipTapEditer/TipTapEditorForm";
 import { Separator } from "../../../components/ui/separator";
 import Image from "next/image";
+import CheckOutButton from "../../../components/CheckOutButton";
 
 const SingleProductPage = async ({
   params,
@@ -91,7 +91,11 @@ const SingleProductPage = async ({
                 {data.shortDescription.trim()}
               </p>
               <Separator className={"my-3 w-full"} />
-              <Button className={"w-full"}>Check Out</Button>
+              <CheckOutButton
+                productId={data.id}
+                sellerId={data.sellerId}
+                price={data.price}
+              />
             </div>
           </div>
         </div>

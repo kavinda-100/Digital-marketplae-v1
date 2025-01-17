@@ -11,6 +11,7 @@ export const getSingleProductById = async (id: string) => {
       },
       select: {
         id: true,
+        sellerId: true,
         name: true,
         shortDescription: true,
         longDescription: true,

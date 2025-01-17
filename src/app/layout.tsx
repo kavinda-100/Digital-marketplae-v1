@@ -46,10 +46,12 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className={"container mx-auto min-h-screen p-2"}>
+            <main
+              className={"container mx-auto flex min-h-screen flex-col p-2"}
+            >
               <TanStackQueryProvider>
                 <Header role={data?.role ?? "SELLER"} />
-                {children}
+                <section className={"flex flex-1"}>{children}</section>
                 <Footer />
                 <Toaster richColors closeButton />
               </TanStackQueryProvider>
