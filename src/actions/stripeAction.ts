@@ -25,8 +25,7 @@ export async function CreateStripeCheckOutSession({
     const user = await getUser();
     // check if user is not found
     if (!user) {
-      new Error("User not found in Kind session");
-      return;
+      throw new Error("User not found in Kind session");
     }
     // check if product is not found
     const product = await prisma.product.findUnique({
@@ -41,8 +40,7 @@ export async function CreateStripeCheckOutSession({
     });
     // if product is not found
     if (!product) {
-      new Error("Product not found");
-      return;
+      throw new Error("Product not found");
     }
     // create order
     const newOrder = await prisma.order.create({
@@ -57,8 +55,7 @@ export async function CreateStripeCheckOutSession({
     });
     // if order is not created
     if (!newOrder) {
-      new Error("Order not created please try again");
-      return;
+      throw new Error("Order not created please try again");
     }
     // create stripe checkout session
     // prefill the email address
@@ -70,7 +67,7 @@ export async function CreateStripeCheckOutSession({
     });
     // create checkout session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card", "amazon_pay", "paypal"],
+      payment_method_types: ["card"],
       line_items: [
         {
           price_data: {

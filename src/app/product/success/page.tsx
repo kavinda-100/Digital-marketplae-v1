@@ -4,6 +4,8 @@ import React from "react";
 import {
   Card,
   CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "../../../components/ui/card";
@@ -12,29 +14,39 @@ import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleOrderProductByID } from "../../../actions/prodcutActions";
 import { toast } from "sonner";
+import { cn } from "../../../lib/utils";
+import { Button } from "../../../components/ui/button";
 
 const SuccessPage = () => {
+  const [enabled, setEnabled] = React.useState(false);
   const searchParams = useSearchParams();
-  const productId = searchParams?.get("order_id") ?? "";
+  const orderId = searchParams?.get("order_id") ?? "";
 
   React.useEffect(() => {
-    if (!productId) {
+    if (!orderId) {
       toast.error("product id not found");
     }
-  }, [productId]);
+  }, [orderId]);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["order", productId],
+    queryKey: ["order"],
     queryFn: async () => {
-      return await getSingleOrderProductByID({ productId });
+      return await getSingleOrderProductByID({ orderId });
     },
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    enabled: enabled,
   });
 
+  React.useEffect(() => {
+    if (orderId) {
+      setEnabled(true);
+    }
+  }, [orderId]);
+
   if (error) {
+    toast.error(error?.message ?? "Error fetching order");
     console.log("Error fetching order", error);
-    toast.error("Error fetching order");
   }
 
   return (
@@ -60,7 +72,6 @@ const SuccessPage = () => {
           </CardContent>
         </Card>
 
-        {/*TODO: Show the order details*/}
         {isLoading && (
           <Card>
             <CardHeader>
@@ -69,6 +80,81 @@ const SuccessPage = () => {
                 Loading...
               </CardTitle>
             </CardHeader>
+          </Card>
+        )}
+        {error && (
+          <p className={"text-center font-bold text-red-500/30"}>
+            Error loading Your order details
+          </p>
+        )}
+        {!isLoading && data && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Your order details</CardTitle>
+              <CardDescription>Below Mention Summary of Order</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className={"flex flex-col gap-4"}>
+                <h2 className={"border-b font-semibold text-muted-foreground"}>
+                  Product Details:
+                </h2>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>Product name:</span>
+                  <span>{data.product.name.slice(0, 40) + "..."}</span>
+                </div>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>Category:</span>
+                  <span className={"capitalize"}>
+                    {data.product.productType.toLocaleLowerCase()}
+                  </span>
+                </div>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>Amount:</span>
+                  <span>{data.amount}</span>
+                </div>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>Status:</span>
+                  <span
+                    className={cn("rounded border p-1 text-sm", {
+                      "border-green-500 bg-green-500/10 text-green-600 dark:bg-green-500/20":
+                        data.status === "COMPLETED",
+                      "border-red-500 bg-red-500/10 text-red-600 dark:bg-red-500/20":
+                        data.status === "CANCELLED",
+                      "border-yellow-500 bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20":
+                        data.status === "PENDING",
+                    })}
+                  >
+                    {data.status}
+                  </span>
+                </div>
+                <h2 className={"border-b font-semibold text-muted-foreground"}>
+                  Shipping Details:
+                </h2>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>Address:</span>
+                  <span>{data.shippingDetails?.address}</span>
+                </div>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>City:</span>
+                  <span>{data.shippingDetails?.city}</span>
+                </div>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>Country:</span>
+                  <span>{data.shippingDetails?.country}</span>
+                </div>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>State:</span>
+                  <span>{data.shippingDetails?.state}</span>
+                </div>
+                <div className={"flex items-center justify-between gap-3"}>
+                  <span className={"font-bold"}>Postal Code:</span>
+                  <span>{data.shippingDetails?.postalCode}</span>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant={"secondary"}>View My All Products</Button>
+            </CardFooter>
           </Card>
         )}
       </div>

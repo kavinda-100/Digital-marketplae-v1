@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { CreateStripeCheckOutSession } from "../actions/stripeAction";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const CheckOutButton = ({
   productId,
@@ -16,11 +17,15 @@ const CheckOutButton = ({
   sellerId: string;
   price: number;
 }) => {
+  const router = useRouter();
   const { mutate, isPending } = useMutation({
     mutationFn: async () =>
       CreateStripeCheckOutSession({ productId, sellerId, price }),
     onSuccess: (data) => {
-      console.log(data);
+      if (data.url) {
+        toast.success("Redirecting to checkout page");
+        router.push(data.url);
+      }
     },
     onError: (error) => {
       toast.error(error.message || "An error occurred");

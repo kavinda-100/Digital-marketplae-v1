@@ -45,14 +45,14 @@ export async function DeleteProductAction({ id }: { id: string }) {
 }
 
 export async function getSingleOrderProductByID({
-  productId,
+  orderId,
 }: {
-  productId: string;
+  orderId: string;
 }) {
   try {
     const order = await prisma.order.findUnique({
       where: {
-        productId: productId,
+        id: orderId,
       },
       select: {
         amount: true,
@@ -62,8 +62,7 @@ export async function getSingleOrderProductByID({
       },
     });
     if (!order) {
-      new Error("order not found");
-      return;
+      throw new Error("order not found");
     }
     return order;
   } catch (e: Error | any) {

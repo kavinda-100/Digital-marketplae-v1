@@ -166,6 +166,7 @@ export async function POST(req: Request) {
                 },
                 data: {
                   status: "COMPLETED",
+                  isPaid: true,
                   shippingDetails: {
                     create: {
                       address: shippingDetails?.line1 ?? "",
