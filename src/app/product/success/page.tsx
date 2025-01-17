@@ -1,8 +1,13 @@
 "use client";
 
 import React from "react";
-import { Card, CardContent } from "../../../components/ui/card";
-import { CircleDollarSign } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../../components/ui/card";
+import { CircleDollarSign, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleOrderProductByID } from "../../../actions/prodcutActions";
@@ -23,10 +28,13 @@ const SuccessPage = () => {
     queryFn: async () => {
       return await getSingleOrderProductByID({ productId });
     },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   if (error) {
-    toast.error(error.message ?? "Error fetching order");
+    console.log("Error fetching order", error);
+    toast.error("Error fetching order");
   }
 
   return (
@@ -51,6 +59,18 @@ const SuccessPage = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/*TODO: Show the order details*/}
+        {isLoading && (
+          <Card>
+            <CardHeader>
+              <CardTitle className={"flex items-center justify-center gap-3"}>
+                <Loader2 className={"size-4 animate-spin"} />
+                Loading...
+              </CardTitle>
+            </CardHeader>
+          </Card>
+        )}
       </div>
     </section>
   );
