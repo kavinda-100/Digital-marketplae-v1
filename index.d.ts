@@ -15,6 +15,16 @@ type SingleProductPageProps = {
 
 type exampleChartData = Record<string, string | number>;
 
+// type OrderColumnType = {
+//   id: string;
+//   amount: number;
+//   status: string;
+//   isPaid: boolean;
+//   productName: string;
+//   productThumbnail: string;
+//   createdAt: string;
+// };
+
 type AllowedCountryType =
   | "AC"
   | "AD"

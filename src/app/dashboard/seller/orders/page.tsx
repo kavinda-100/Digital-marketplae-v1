@@ -1,6 +1,11 @@
 import React from "react";
+import TablePage from "./TablePage";
 
 const SellerOrders = () => {
-  return <div>SellerOrders</div>;
+  return (
+    <section className={"container mx-auto"}>
+      <TablePage />
+    </section>
+  );
 };
 export default SellerOrders;

@@ -187,3 +187,41 @@ export async function getSellerResentOrders() {
     throw new Error("Internal Server Error");
   }
 }
+
+export async function getSellerOrders() {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+    return await prisma.order.findMany({
+      where: {
+        sellerId: user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        amount: true,
+        status: true,
+        isPaid: true,
+        product: {
+          select: {
+            name: true,
+            thumbnail: {
+              select: {
+                url: true,
+              },
+            },
+          },
+        },
+        createdAt: true,
+      },
+    });
+  } catch (e: unknown) {
+    console.log("Error in getSellerOrders", e);
+    throw new Error("Internal Server Error");
+  }
+}
