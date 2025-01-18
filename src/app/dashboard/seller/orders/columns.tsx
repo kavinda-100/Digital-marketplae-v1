@@ -162,7 +162,7 @@ export const orderColumns: ColumnDef<OrderColumnType>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem className={"cursor-pointer"}>
               <Link href={`/dashboard/seller/orders/${orderId}`}>
-                View Product
+                View Order
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
