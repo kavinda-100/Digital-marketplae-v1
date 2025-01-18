@@ -4,6 +4,7 @@ import UserPlan from "../../../components/UserPlan";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { getSellerCurruntPlan } from "../../../apiFile/seller";
+import StatsCardSection from "../../../sections/StatsCardSection";
 
 const Page = async () => {
   const { getUser } = getKindeServerSession();
@@ -18,6 +19,7 @@ const Page = async () => {
         <TimeZoneClock />
         <UserPlan plan={userPlan?.plan ?? "basic"} />
       </div>
+      <StatsCardSection forWho={"seller"} />
     </section>
   );
 };
