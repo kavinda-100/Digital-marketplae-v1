@@ -66,21 +66,21 @@ const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
               title={"Revenue"}
               description={"Total revenue for the all time"}
               value={SellerData.revenue}
-              icon={<CircleDollarSign className={"size-4"} />}
+              icon={<CircleDollarSign className={"size-4 text-primary"} />}
               isIconShow={true}
             />
             <SingleStatsCard
               title={"No of Products"}
               description={"No of products in Your store"}
               value={SellerData.noOfProducts}
-              icon={<ShoppingBag className={"size-4"} />}
+              icon={<ShoppingBag className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
               title={"No of Orders"}
               description={"No of orders in Your store"}
               value={SellerData.noOfOrders}
-              icon={<CreditCard className={"size-4"} />}
+              icon={<CreditCard className={"size-4 text-primary"} />}
               isIconShow={false}
             />
           </>
@@ -90,42 +90,42 @@ const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
               title={"Revenue"}
               description={"Total revenue for the all time"}
               value={AdminData.revenue}
-              icon={<CircleDollarSign className={"size-4"} />}
+              icon={<CircleDollarSign className={"size-4 text-primary"} />}
               isIconShow={true}
             />
             <SingleStatsCard
               title={"No of Users"}
               description={"No of User in the store"}
               value={AdminData.noOfUsers}
-              icon={<Users className={"size-4"} />}
+              icon={<Users className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
               title={"No of Sellers"}
               description={"No of sellers in the store"}
               value={AdminData.noOfSellers}
-              icon={<UsersRound className={"size-4"} />}
+              icon={<UsersRound className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
               title={"No of Products"}
               description={"No of products in Your store"}
               value={AdminData.noOfProducts}
-              icon={<ShoppingBag className={"size-4"} />}
+              icon={<ShoppingBag className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
               title={"No of Orders"}
               description={"No of orders in Your store"}
               value={AdminData.noOfOrders}
-              icon={<CreditCard className={"size-4"} />}
+              icon={<CreditCard className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
               title={"No of Subscriptions"}
               description={"No of subscriptions in the store"}
               value={AdminData.noOfSubscriptions}
-              icon={<Handshake className={"size-4"} />}
+              icon={<Handshake className={"size-4 text-primary"} />}
               isIconShow={false}
             />
           </>

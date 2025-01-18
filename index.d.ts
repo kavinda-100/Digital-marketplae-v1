@@ -13,6 +13,8 @@ type SingleProductPageProps = {
   kindUserId?: string;
 };
 
+type exampleChartData = Record<string, string | number>;
+
 type AllowedCountryType =
   | "AC"
   | "AD"

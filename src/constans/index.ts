@@ -3,6 +3,21 @@ export const DomainURL =
     ? "http://localhost:3000"
     : `${process.env.DOMAIN_NAME}`;
 
+export const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export const AllowedCountries: AllowedCountryType[] = [
   "AC",
   "AD",

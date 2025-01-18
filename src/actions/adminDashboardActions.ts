@@ -1,3 +1,5 @@
+"use server";
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { prisma } from "../server/db";
 

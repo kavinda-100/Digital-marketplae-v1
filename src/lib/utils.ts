@@ -16,6 +16,14 @@ export function formatCurrency(amount: number) {
   }).format(amount);
 }
 
+export function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  }).format(date);
+}
+
 export const firstLetterUpperCase = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
