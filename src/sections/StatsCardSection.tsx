@@ -70,14 +70,14 @@ const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
               isIconShow={true}
             />
             <SingleStatsCard
-              title={"No of Products"}
+              title={"Products"}
               description={"No of products in Your store"}
               value={SellerData.noOfProducts}
               icon={<ShoppingBag className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
-              title={"No of Orders"}
+              title={"Orders"}
               description={"No of orders in Your store"}
               value={SellerData.noOfOrders}
               icon={<CreditCard className={"size-4 text-primary"} />}
@@ -94,35 +94,35 @@ const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
               isIconShow={true}
             />
             <SingleStatsCard
-              title={"No of Users"}
+              title={"Users"}
               description={"No of User in the store"}
               value={AdminData.noOfUsers}
               icon={<Users className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
-              title={"No of Sellers"}
+              title={"Sellers"}
               description={"No of sellers in the store"}
               value={AdminData.noOfSellers}
               icon={<UsersRound className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
-              title={"No of Products"}
+              title={"Products"}
               description={"No of products in Your store"}
               value={AdminData.noOfProducts}
               icon={<ShoppingBag className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
-              title={"No of Orders"}
+              title={"Orders"}
               description={"No of orders in Your store"}
               value={AdminData.noOfOrders}
               icon={<CreditCard className={"size-4 text-primary"} />}
               isIconShow={false}
             />
             <SingleStatsCard
-              title={"No of Subscriptions"}
+              title={"Subscriptions"}
               description={"No of subscriptions in the store"}
               value={AdminData.noOfSubscriptions}
               icon={<Handshake className={"size-4 text-primary"} />}

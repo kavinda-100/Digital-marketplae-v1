@@ -14,7 +14,7 @@ type DashboardSideBarProps = {
 const DashboardSideBar = ({ role }: DashboardSideBarProps) => {
   const pathname = usePathname();
   return (
-    <div className={"h-max w-full max-w-[200px]"}>
+    <div className={"h-full w-full max-w-[200px] border-r p-2"}>
       <div className={"flex w-full flex-col gap-3"}>
         <>
           {role === "SELLER"

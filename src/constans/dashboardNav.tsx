@@ -1,5 +1,6 @@
 import {
   BadgeDollarSign,
+  CreditCard,
   LayoutDashboard,
   ShoppingBasket,
   ShoppingCart,
@@ -27,6 +28,11 @@ export const sellerNav: NavLinkType[] = [
     name: "Products",
     href: "/dashboard/seller/product",
     icon: <ShoppingCart />,
+  },
+  {
+    name: "Orders",
+    href: "/dashboard/seller/orders",
+    icon: <CreditCard />,
   },
 ];
 

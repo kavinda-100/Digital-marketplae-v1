@@ -8,12 +8,12 @@ import { getSellerLineChartData } from "../actions/sellerDashboardActions";
 import LineChartSkeleton from "../skeletons/LineChartSkeleton";
 
 // const chartData: exampleChartData[] = [
-//   { month: "January", sales: 186, revenue: 80 },
-//   { month: "February", sales: 160, revenue: 90 },
-//   { month: "March", sales: 120, revenue: 100 },
-//   { month: "April", sales: 140, revenue: 80 },
-//   { month: "May", sales: 180, revenue: 70 },
-//   { month: "June", sales: 210, revenue: 100 },
+//   { month: "January", sales: 186, revenue: 500 },
+//   { month: "February", sales: 140, revenue: 900 },
+//   { month: "March", sales: 200, revenue: 1050 },
+//   { month: "April", sales: 120, revenue: 800 },
+//   { month: "May", sales: 250, revenue: 1500 },
+//   { month: "June", sales: 300, revenue: 1600 },
 // ];
 
 const chartConfig = {

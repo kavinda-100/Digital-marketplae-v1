@@ -29,7 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Role } from "@prisma/client";
-import { randomLetter } from "../lib/utils";
+import { cn, randomLetter } from "../lib/utils";
 
 const navItems = [
   {
@@ -69,7 +69,11 @@ const Header = ({ role }: HeaderProps) => {
         ? "/dashboard/admin"
         : "/dashboard/user";
   return (
-    <header className={"container mx-auto flex w-full p-2"}>
+    <header
+      className={cn("container mx-auto mb-1 flex w-full rounded p-2", {
+        "border-b": pathname?.startsWith("/dashboard"),
+      })}
+    >
       {/* logo */}
       <div className={"w-full justify-start"}>
         <Link href={"/"}>
