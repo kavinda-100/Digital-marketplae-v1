@@ -1,12 +1,5 @@
-import {
-  getKindeServerSession,
-  RegisterLink,
-} from "@kinde-oss/kinde-auth-nextjs/server";
-import { Button } from "../components/ui/button";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { getUserBuId } from "@/apiFile";
-import Link from "next/link";
-import { Atom } from "lucide-react";
-import ButtonRotatingBackgroundGradient from "@/components/ButtonRotatingBackgroundGradient";
 import PriceSection from "../sections/PriceSection";
 import { Suspense } from "react";
 import ProductCardSkeleton from "@/skeletons/ProductCardSkeleton";
@@ -14,6 +7,22 @@ import SingleTypeProductCards from "@/components/SingleTypeProductCards";
 import { Testimonials } from "@/components/animatios/eldoraui/testimonals";
 import { Logos } from "../components/animatios/eldoraui/Logos";
 import WelcomeButton from "../components/WelcomeButton";
+import HeroBg from "../components/HeroBG";
+import { TypewriterEffectSmooth } from "../components/animatios/aceternity/typewriter-effect";
+
+const words = [
+  { text: "Welcome" },
+  { text: "To" },
+  { text: "The" },
+  {
+    text: "Digital",
+    className: "text-primary/70 dark:text-primary",
+  },
+  {
+    text: "Hub",
+    className: "text-primary dark:text-primary",
+  },
+];
 
 export default async function HomePage() {
   const { getUser } = getKindeServerSession();
@@ -31,25 +40,16 @@ export default async function HomePage() {
         <div className={"my-4 flex w-full items-center justify-center"}>
           <div
             className={
-              "w-fit rounded-lg border bg-primary/20 px-2 py-1 text-center font-mono font-thin tracking-tight text-primary/60"
+              "w-fit rounded-lg border bg-primary/30 px-2 py-1 text-center font-mono font-thin tracking-tight text-gray-700 dark:bg-primary/50 dark:text-white"
             }
           >
             Digital Hub v1.0.0
           </div>
         </div>
-        <h1
-          className={
-            "text-pretty text-center text-xl font-extrabold tracking-tight text-black/80 dark:text-white/90 lg:text-5xl"
-          }
-        >
-          Welcome To The <br />{" "}
-          <span className={"text-primary/70"}>
-            Digital <span className={"text-primary"}>Hub</span>
-          </span>
-        </h1>
+        <TypewriterEffectSmooth words={words} />
         <p
           className={
-            "mt-8 text-pretty text-center font-sans text-lg font-semibold capitalize lg:text-xl"
+            "mt-8 text-pretty text-center font-sans text-lg font-medium capitalize lg:text-xl"
           }
         >
           Your one-stop shop for all your digital needs. Discover a world of
@@ -62,6 +62,10 @@ export default async function HomePage() {
           <WelcomeButton user={user} role={data?.role ?? "USER"} />
         </div>
       </section>
+
+      {/*  hero bg */}
+      <HeroBg />
+
       {/*  card section */}
       <section
         className={"flex w-full flex-col items-center justify-center gap-4"}
