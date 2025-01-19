@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
@@ -35,7 +34,7 @@ const SellerResentOrdersSideBar = () => {
         !error &&
         data &&
         data.map((order, index) => (
-          <Card className={"my-1 w-full"} key={index}>
+          <Card className={"my-4 w-full"} key={index}>
             <CardHeader>
               <CardTitle className={"line-clamp-1"}>
                 {order.product.name}

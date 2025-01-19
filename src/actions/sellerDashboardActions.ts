@@ -162,7 +162,7 @@ export async function getSellerResentOrders() {
         sellerId: user.id,
         status: "COMPLETED",
       },
-      take: 4,
+      take: 3,
       orderBy: {
         createdAt: "desc",
       },
@@ -195,7 +195,7 @@ export async function getSellerOrders() {
     if (!user) {
       throw new Error("Unauthorized");
     }
-    return await prisma.order.findMany({
+    const result = await prisma.order.findMany({
       where: {
         sellerId: user.id,
       },
@@ -219,6 +219,18 @@ export async function getSellerOrders() {
         },
         createdAt: true,
       },
+    });
+    // format the data
+    return result.map((order) => {
+      return {
+        id: order.id,
+        amount: order.amount,
+        status: order.status,
+        isPaid: order.isPaid,
+        productName: order.product.name,
+        productThumbnail: order.product.thumbnail.map((t) => t.url)[0],
+        createdAt: order.createdAt,
+      };
     });
   } catch (e: unknown) {
     console.log("Error in getSellerOrders", e);

@@ -10,6 +10,10 @@ const DOMAIN_NAME =
     ? "http://localhost:3000"
     : process.env.DOMAIN_NAME!;
 
+const covertToCents = (amount: number) => {
+  return Math.round(amount * 100);
+};
+
 export async function CreateStripeCheckOutSession({
   productId,
   sellerId,
@@ -77,7 +81,7 @@ export async function CreateStripeCheckOutSession({
               description: product.shortDescription,
               images: productImages,
             },
-            unit_amount: price * 100, // convert to cents
+            unit_amount: covertToCents(price), // convert to cents
           },
           quantity: 1,
         },

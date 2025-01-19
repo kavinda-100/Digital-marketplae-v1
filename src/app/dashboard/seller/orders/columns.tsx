@@ -1,7 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Prisma } from "@prisma/client";
+import type { OrderStatus } from "@prisma/client";
 import {
   Avatar,
   AvatarFallback,
@@ -20,33 +20,43 @@ import { Button } from "../../../../components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
-type OrderColumnType = Prisma.OrderGetPayload<{
-  select: {
-    id: true;
-    amount: true;
-    status: true;
-    isPaid: true;
-    product: {
-      select: {
-        name: true;
-        thumbnail: {
-          select: {
-            url: true;
-          };
-        };
-      };
-    };
-    createdAt: true;
-  };
-}>;
+// type OrderColumnType = Prisma.OrderGetPayload<{
+//   select: {
+//     id: true;
+//     amount: true;
+//     status: true;
+//     isPaid: true;
+//     product: {
+//       select: {
+//         name: true;
+//         thumbnail: {
+//           select: {
+//             url: true;
+//           };
+//         };
+//       };
+//     };
+//     createdAt: true;
+//   };
+// }>;
+
+type OrderColumnType = {
+  id: string;
+  amount: number;
+  status: OrderStatus;
+  isPaid: boolean;
+  productName: string;
+  productThumbnail: string | undefined;
+  createdAt: Date;
+};
 
 export const orderColumns: ColumnDef<OrderColumnType>[] = [
   {
-    accessorKey: "product.thumbnail.url",
+    accessorKey: "productThumbnail",
     header: "Thumbnail",
     cell: ({ row }) => {
-      const url = row.original.product.thumbnail.map((t) => t.url)[0];
-      const fallback = row.original.product.name.charAt(0) ?? "N/A";
+      const url = row.original.productThumbnail ?? "";
+      const fallback = row.original.productName?.charAt(0) ?? "N/A";
       return (
         <Avatar className={"size-10"}>
           <AvatarImage src={url} className={"object-fill"} />
@@ -56,7 +66,7 @@ export const orderColumns: ColumnDef<OrderColumnType>[] = [
     },
   },
   {
-    accessorKey: "product.name",
+    accessorKey: "productName",
     header: ({ column }) => {
       return (
         <Button
@@ -69,7 +79,7 @@ export const orderColumns: ColumnDef<OrderColumnType>[] = [
       );
     },
     cell: ({ row }) => {
-      const name = row.original.product.name ?? "N/A";
+      const name = row.original.productName ?? "N/A";
       return <p className={"font-medium"}>{name.slice(0, 50) + "..."}</p>;
     },
   },
@@ -98,7 +108,7 @@ export const orderColumns: ColumnDef<OrderColumnType>[] = [
       const status = row.original.status ?? "CANCELLED";
       return (
         <div
-          className={cn("rounded border p-1 text-xs", {
+          className={cn("rounded border p-1 text-center text-xs", {
             "border-green-500 bg-green-500/10 text-green-600 dark:bg-green-500/20":
               status === "COMPLETED",
             "border-red-500 bg-red-500/10 text-red-600 dark:bg-red-500/20":
@@ -119,7 +129,7 @@ export const orderColumns: ColumnDef<OrderColumnType>[] = [
       const isPaid = row.original.isPaid ?? false;
       return (
         <div
-          className={cn("rounded border p-1 text-xs", {
+          className={cn("rounded border p-1 text-center text-xs", {
             "border-green-500 bg-green-500/10 text-green-600 dark:bg-green-500/20":
               isPaid === true,
             "border-red-500 bg-red-500/10 text-red-600 dark:bg-red-500/20":

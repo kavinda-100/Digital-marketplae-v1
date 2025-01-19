@@ -24,8 +24,8 @@ const TablePage = () => {
       <TableComponent
         columns={orderColumns}
         data={data ?? []}
-        FilterInputPlaceholder={"Search by product amount"}
-        NameForFilter={"amount"}
+        FilterInputPlaceholder={"Search by product name"}
+        NameForFilter={"productName"}
         showExportToExcel={false}
       />
     </div>

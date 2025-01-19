@@ -39,6 +39,7 @@ const SellerSellPage = () => {
     "ICONS" | "UIKITS" | "TEMPLATES"
   >("TEMPLATES");
   const [editorValue, setEditorValue] = React.useState<string>();
+  const [productUrls, setProductUrls] = React.useState<string[]>([]);
 
   const form = useForm<z.infer<typeof ProductSchema>>({
     resolver: zodResolver(ProductSchema),
@@ -199,12 +200,25 @@ const SellerSellPage = () => {
                       key: file.key,
                     }));
                     form.setValue("thumbnailUrls", urls);
+                    setProductUrls(res.map((file) => file.url));
                   }}
                   onUploadError={(error: Error) => {
                     console.log("Image Upload Error: ", error);
                     toast.error(`Image Upload ERROR! ${error.message}`);
                   }}
                 />
+              </div>
+              <div className={"flex items-center justify-start gap-3"}>
+                {productUrls.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`thumbnail-${index}`}
+                    className={
+                      "h-20 w-20 overflow-x-scroll rounded-md object-cover"
+                    }
+                  />
+                ))}
               </div>
               <p className={"text-[0.8rem] font-light text-muted-foreground"}>
                 You can upload up to 4 images

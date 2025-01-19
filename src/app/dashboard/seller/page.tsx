@@ -25,7 +25,11 @@ const Page = async () => {
         </TabsList>
         <TabsContent value="statistics">
           <StatsCardSection forWho={"seller"} />
-          <div className={"mt-4 grid w-full grid-cols-1 gap-3 lg:grid-cols-3"}>
+          <div
+            className={
+              "mt-4 grid h-full w-full grid-cols-1 gap-3 lg:grid-cols-3"
+            }
+          >
             <div className={"lg:col-span-2"}>
               <SellerLineChartSection />
             </div>
