@@ -8,14 +8,28 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { useTheme } from "next-themes";
 
 const images = [
-  { src: "/sOne.png", alt: "hero-bg-one" },
-  { src: "/sTwo.png", alt: "hero-bg-two" },
-  { src: "/sThree.png", alt: "hero-bg-three" },
+  {
+    lightSrc: "/sOne.png",
+    darkSrc: "/darkOne.png",
+    alt: "hero-bg-one",
+  },
+  {
+    lightSrc: "/sTwo.png",
+    darkSrc: "/darkTwo.png",
+    alt: "hero-bg-two",
+  },
+  {
+    lightSrc: "/sThree.png",
+    darkSrc: "/darkThree.png",
+    alt: "hero-bg-three",
+  },
 ];
 
 const HeroBg = () => {
+  const theme = useTheme();
   return (
     <section className={"mb-5 mt-10 h-auto w-full"}>
       <Carousel
@@ -29,13 +43,13 @@ const HeroBg = () => {
         <CarouselContent>
           {images.map((image, index) => (
             <CarouselItem key={index}>
-              <div className={"relative lg:h-[800px]"}>
+              <div className={"relative h-[200px] lg:h-[700px]"}>
                 <Image
-                  src={image.src}
+                  src={theme.theme === "dark" ? image.darkSrc : image.lightSrc}
                   alt={image.alt}
                   fill
                   className={
-                    "w-full rounded-lg border object-contain shadow-md lg:!h-[700px]"
+                    "!h-full w-full rounded-lg border border-primary/20 object-cover shadow-md dark:border-primary/30 lg:object-fill"
                   }
                 />
               </div>

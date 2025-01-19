@@ -132,7 +132,9 @@ const Footer = () => {
           </p>
           <p className="text-sm">
             Developed by{" "}
-            <span className="font-mono font-bold">Kavinda Rathnayake</span>
+            <span className="font-mono font-bold text-primary/80">
+              Kavinda Rathnayake
+            </span>
             <br />
             More projects on{" "}
             <Link
