@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -25,6 +26,20 @@ const Footer = () => {
         </p>
         <p className={"text-center text-sm text-muted-foreground"}>
           All rights reserved &copy; {new Date().getFullYear()} Digital Hub
+        </p>
+        <p className={"text-center text-sm text-muted-foreground"}>
+          Developed by{" "}
+          <span className={"font-mono font-bold tracking-tight"}>
+            Kavinda Rathnayake
+          </span>{" "}
+          <br />
+          More projects on{" "}
+          <Link
+            href={"https://github.com/kavinda-100"}
+            className={"font-medium underline hover:text-primary"}
+          >
+            GitHub.com
+          </Link>
         </p>
       </div>
     </footer>
