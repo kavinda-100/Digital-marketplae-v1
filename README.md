@@ -23,16 +23,13 @@ This is a Digital Marketplace for digital assets like Templates, UiKits, Icons
 ### Demo
 [Watch the Demo Video](https://res.cloudinary.com/dcq90ha0c/video/upload/v1737300187/demo_vhrtdf.mp4)
 
-<video src="https://res.cloudinary.com/dcq90ha0c/video/upload/v1737300187/demo_vhrtdf.mp4" width="320" height="240" controls></video>
-
-
 
 ### Previews
-- Dashboard
+Dashboard
 ![Dashboard](./assets/ui/darkOne.png)
-- Products
+Products
 ![Products](./assets/ui/darkTwo.png)
-- Orders
+Orders
 ![Orders](./assets/ui/darkThree.png)
 
 
