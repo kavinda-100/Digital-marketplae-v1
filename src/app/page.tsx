@@ -11,6 +11,9 @@ import PriceSection from "../sections/PriceSection";
 import { Suspense } from "react";
 import ProductCardSkeleton from "@/skeletons/ProductCardSkeleton";
 import SingleTypeProductCards from "@/components/SingleTypeProductCards";
+import { Testimonials } from "@/components/animatios/eldoraui/testimonals";
+import { Logos } from "../components/animatios/eldoraui/Logos";
+import WelcomeButton from "../components/WelcomeButton";
 
 export default async function HomePage() {
   const { getUser } = getKindeServerSession();
@@ -53,31 +56,10 @@ export default async function HomePage() {
           online services, from web design and development to digital marketing
           and beyond.
         </p>
-        <div className={"mt-6 text-center"}>
-          {user ? (
-            <>
-              <Link
-                href={
-                  data?.role === "ADMIN"
-                    ? "/dashboard/admin"
-                    : data?.role === "SELLER"
-                      ? "/dashboard/seller"
-                      : "/dashboard/user"
-                }
-              >
-                <Button>
-                  {" "}
-                  <Atom className={"mr-2 size-4"} /> Continue To Dashboard
-                </Button>
-              </Link>
-            </>
-          ) : (
-            <>
-              <RegisterLink>
-                <ButtonRotatingBackgroundGradient text={"Get Start Today"} />
-              </RegisterLink>
-            </>
-          )}
+        <div
+          className={"container mx-auto mt-10 flex items-center justify-center"}
+        >
+          <WelcomeButton user={user} role={data?.role ?? "USER"} />
         </div>
       </section>
       {/*  card section */}
@@ -115,6 +97,22 @@ export default async function HomePage() {
 
       {/*  pricing section */}
       <PriceSection />
+
+      {/*  Logos */}
+      <section className={"container mx-auto mb-8"}>
+        <Logos />
+      </section>
+
+      {/*  testimonial section*/}
+      <section className="container relative z-10 mx-auto mb-8 mt-4 h-[700px] w-full overflow-hidden rounded-lg bg-background">
+        <Testimonials />
+      </section>
+
+      <div
+        className={"container mx-auto my-10 flex items-center justify-center"}
+      >
+        <WelcomeButton user={user} role={data?.role ?? "USER"} />
+      </div>
     </section>
   );
 }

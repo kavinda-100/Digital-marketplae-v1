@@ -13,6 +13,21 @@ const config = {
         hostname: "utfs.io",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+      },
     ],
   },
 };

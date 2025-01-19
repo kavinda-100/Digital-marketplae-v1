@@ -14,7 +14,7 @@ import {
   Users,
   UsersRound,
 } from "lucide-react";
-import { NumberTicker } from "../components/animatios/NumberTicker";
+import { NumberTicker } from "../components/animatios/magicui/NumberTicker";
 import { getSellerStats } from "../actions/sellerDashboardActions";
 import { getAdminStats } from "../actions/adminDashboardActions";
 
