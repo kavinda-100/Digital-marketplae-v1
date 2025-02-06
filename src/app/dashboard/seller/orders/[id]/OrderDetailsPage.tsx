@@ -121,7 +121,9 @@ const OrderDetailsPage = ({ orderId }: { orderId: string }) => {
                       key={thumbnail.url}
                       src={thumbnail.url}
                       alt={data.product.name}
-                      className={"h-24 w-24 rounded-md lg:h-32 lg:w-32"}
+                      className={
+                        "h-24 w-24 rounded-md object-cover lg:h-32 lg:w-32"
+                      }
                     />
                   );
                 })}
@@ -341,7 +343,6 @@ const OrderDetailsPage = ({ orderId }: { orderId: string }) => {
               <div className={"flex items-center gap-3"}>
                 <Avatar>
                   <AvatarImage
-                    className={"h-12 w-12 rounded-full"}
                     src={data.seller.profilePic ?? ""}
                     alt={data.seller.name ?? ""}
                   />
@@ -369,7 +370,6 @@ const OrderDetailsPage = ({ orderId }: { orderId: string }) => {
               <div className={"flex items-center gap-3"}>
                 <Avatar>
                   <AvatarImage
-                    className={"h-12 w-12 rounded-full"}
                     src={data.buyer.profilePic ?? ""}
                     alt={data.buyer.name ?? ""}
                   />
