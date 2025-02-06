@@ -88,3 +88,53 @@ export async function deleteAccount() {
     throw new Error("Internal server error");
   }
 }
+
+export async function getMyOrders() {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+    const result = await prisma.order.findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        amount: true,
+        status: true,
+        isPaid: true,
+        product: {
+          select: {
+            name: true,
+            thumbnail: {
+              select: {
+                url: true,
+              },
+            },
+          },
+        },
+        createdAt: true,
+      },
+    });
+    // format the data
+    return result.map((order) => {
+      return {
+        id: order.id,
+        amount: order.amount,
+        status: order.status,
+        isPaid: order.isPaid,
+        productName: order.product.name,
+        productThumbnail: order.product.thumbnail.map((t) => t.url)[0],
+        createdAt: order.createdAt,
+      };
+    });
+  } catch (e: unknown) {
+    console.log("Error in getSellerOrders", e);
+    throw new Error("Internal Server Error");
+  }
+}

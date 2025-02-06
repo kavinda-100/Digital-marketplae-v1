@@ -2,15 +2,15 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getSellerOrders } from "../../../../actions/sellerDashboardActions";
 import { TableComponent } from "../../../../components/table/TableComponent";
 import { orderColumns } from "./columns";
 import { Skeleton } from "../../../../components/ui/skeleton";
+import { getMyOrders } from "../../../../actions/userActions";
 
 const MyOrderTablePage = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["sellerOrdersTable"],
-    queryFn: getSellerOrders,
+    queryFn: getMyOrders,
   });
 
   if (isLoading) {
