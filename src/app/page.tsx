@@ -40,7 +40,7 @@ export default async function HomePage() {
         <div className={"my-4 flex w-full items-center justify-center"}>
           <div
             className={
-              "w-fit rounded-lg border bg-primary/30 px-2 py-1 text-center font-mono font-thin tracking-tight text-gray-700 dark:bg-primary/50 dark:text-white"
+              "w-fit rounded-lg border bg-primary/30 px-2 py-1 text-center font-mono font-thin tracking-tight text-gray-700 dark:border-primary dark:bg-primary/50 dark:text-white"
             }
           >
             Digital Hub v1.0.0

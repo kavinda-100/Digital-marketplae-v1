@@ -117,11 +117,18 @@ const Header = ({ role }: HeaderProps) => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href={"/profile"}>Profile</Link>
+                  <Link href={"/profile"} className={"cursor-pointer"}>
+                    Profile
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>Billing</DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={"/product/orders/my"}>My Orders</Link>
+                  <Link
+                    href={"/product/orders/my"}
+                    className={"cursor-pointer"}
+                  >
+                    My Orders
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className={"font-bold"}>
