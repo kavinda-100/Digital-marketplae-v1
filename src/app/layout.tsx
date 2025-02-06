@@ -5,7 +5,7 @@ import { type Metadata } from "next";
 // providers
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
-import { TanStackQueryProvider } from "../providers/TanStackQueryProvider";
+import TanStackQueryProvider from "../providers/TanStackQueryProvider";
 // kinde auth
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { getUserBuId } from "@/apiFile";

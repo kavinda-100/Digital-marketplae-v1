@@ -1,5 +1,3 @@
-import { env } from "@/env";
-
 export type PricingDetailType = {
   id: number;
   title: string;
@@ -48,7 +46,7 @@ export const PricingDetails: PricingDetailType[] = [
       { name: "Advanced sales insights" },
     ],
     type: "pro",
-    link: env.NEXT_PUBLIC_STRIPE_MONTHLY_PRO_LINK,
+    link: process.env.NEXT_PUBLIC_STRIPE_MONTHLY_PRO_LINK,
   },
   {
     id: 3,
@@ -67,6 +65,6 @@ export const PricingDetails: PricingDetailType[] = [
       { name: "Advanced analytics and marketing tools" },
     ],
     type: "enterprise",
-    link: env.NEXT_PUBLIC_STRIPE_MONTHLY_ENTERPRISE_LINK,
+    link: process.env.NEXT_PUBLIC_STRIPE_MONTHLY_ENTERPRISE_LINK,
   },
 ];

@@ -19,6 +19,8 @@ const config = {
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-empty-object-type": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
