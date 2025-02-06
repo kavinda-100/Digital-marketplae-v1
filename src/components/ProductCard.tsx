@@ -12,6 +12,7 @@ import Image from "next/image";
 import { formatCurrency } from "../lib/utils";
 import { Pencil } from "lucide-react";
 import DeleteProduct from "./DeleteProduct";
+import PriceTag from "./PriceTag";
 
 type ProductCardProps = {
   id: string;
@@ -65,13 +66,7 @@ const ProductCard = ({
             >
               {name.trim()}
             </p>
-            <p
-              className={
-                "inline-flex items-center rounded-md bg-primary/10 px-2 py-1 font-mono text-xs font-bold text-primary ring-1 ring-inset ring-primary/10"
-              }
-            >
-              {formatCurrency(price)}
-            </p>
+            <PriceTag price={price ?? 0} />
           </div>
           <p
             className={"line-clamp-2 text-sm capitalize text-muted-foreground"}

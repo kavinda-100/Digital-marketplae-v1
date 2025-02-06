@@ -3,6 +3,7 @@
 import { prisma } from "../server/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { months } from "../constans";
+import { revalidatePath } from "next/cache";
 
 export async function getSellerStats() {
   try {
@@ -234,6 +235,203 @@ export async function getSellerOrders() {
     });
   } catch (e: unknown) {
     console.log("Error in getSellerOrders", e);
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getSellerOrderByOrderId(id: string) {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+    // get the order and shipping details
+    const result = await prisma.order.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        amount: true,
+        status: true,
+        isPaid: true,
+        createdAt: true,
+        shippingDetails: true,
+        productId: true,
+        userId: true,
+        sellerId: true,
+        cancelReason: true,
+        canceledAt: true,
+      },
+    });
+    if (!result) {
+      throw new Error("Order not found");
+    }
+    // get the product details
+    const product = await prisma.product.findUnique({
+      where: {
+        id: result.productId,
+      },
+      select: {
+        name: true,
+        shortDescription: true,
+        price: true,
+        thumbnail: {
+          select: {
+            url: true,
+          },
+        },
+      },
+    });
+    // get the user details
+    const buyer = await prisma.user.findUnique({
+      where: {
+        kindUserId: result.userId,
+      },
+      select: {
+        name: true,
+        email: true,
+        profilePic: true,
+      },
+    });
+    // get the seller details
+    const seller = await prisma.user.findUnique({
+      where: {
+        kindUserId: result.sellerId,
+      },
+      select: {
+        name: true,
+        email: true,
+        profilePic: true,
+      },
+    });
+    // format the data
+    return {
+      id: result.id,
+      amount: result.amount,
+      status: result.status,
+      isPaid: result.isPaid,
+      cancelReason: result.cancelReason,
+      canceledAt: result.canceledAt,
+      createdAt: result.createdAt,
+      shippingDetails: {
+        address: result.shippingDetails?.address,
+        city: result.shippingDetails?.city,
+        country: result.shippingDetails?.country,
+        postalCode: result.shippingDetails?.postalCode,
+      },
+      product: {
+        name: product?.name,
+        shortDescription: product?.shortDescription,
+        price: product?.price,
+        thumbnail: product?.thumbnail,
+      },
+      buyer: {
+        name: buyer?.name,
+        email: buyer?.email,
+        profilePic: buyer?.profilePic,
+      },
+      seller: {
+        name: seller?.name,
+        email: seller?.email,
+        profilePic: seller?.profilePic,
+      },
+    };
+  } catch (e: unknown) {
+    console.log("Error in getSellerOrderByOrderId", e);
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function cancelOrder({
+  orderId,
+  cancellationReason,
+}: {
+  orderId: string;
+  cancellationReason: string;
+}) {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+    const order = await prisma.order.findUnique({
+      where: {
+        id: orderId,
+      },
+      select: {
+        status: true,
+      },
+    });
+    if (!order) {
+      throw new Error("Order not found");
+    }
+    if (order.status === "CANCELLED") {
+      throw new Error("Order is already cancelled");
+    }
+    await prisma.order.update({
+      where: {
+        id: orderId,
+      },
+      data: {
+        status: "CANCELLED",
+        cancelReason: cancellationReason,
+        canceledAt: new Date(),
+      },
+    });
+
+    revalidatePath("/seller/orders");
+    revalidatePath(`/seller/orders/${orderId}`);
+    return {
+      message: "Order cancelled successfully",
+    };
+  } catch (e: unknown) {
+    console.log("Error in cancelOrder", e);
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function undoCancelOrder({ id }: { id: string }) {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+    const order = await prisma.order.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        status: true,
+      },
+    });
+    if (!order) {
+      throw new Error("Order not found");
+    }
+    if (order.status !== "CANCELLED") {
+      throw new Error("Order is not cancelled");
+    }
+    await prisma.order.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "COMPLETED",
+        cancelReason: null,
+        canceledAt: null,
+      },
+    });
+
+    revalidatePath("/seller/orders");
+    revalidatePath(`/seller/orders/${id}`);
+    return {
+      message: "Order cancellation undone successfully",
+    };
+  } catch (e: unknown) {
+    console.log("Error in undoCancelOrder", e);
     throw new Error("Internal Server Error");
   }
 }

@@ -103,6 +103,8 @@ model Order{
     productId String // which product is being bought
     amount    Float
     isPaid    Boolean @default(false)
+    cancelReason String?
+    canceledAt DateTime?
     status    OrderStatus @default(PENDING)
     shippingDetails ShippingDetails?
     product   Product @relation(fields: [productId], references: [id])

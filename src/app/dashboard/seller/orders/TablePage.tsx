@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSellerOrders } from "../../../../actions/sellerDashboardActions";
 import { TableComponent } from "../../../../components/table/TableComponent";
 import { orderColumns } from "./columns";
+import { Skeleton } from "../../../../components/ui/skeleton";
 
 const TablePage = () => {
   const { data, error, isLoading } = useQuery({
@@ -13,7 +14,11 @@ const TablePage = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={"w-full"}>
+        <Skeleton className={"h-[300px] w-full lg:h-[500px]"} />
+      </div>
+    );
   }
   if (error) {
     return <div>Error: {error.message}</div>;
