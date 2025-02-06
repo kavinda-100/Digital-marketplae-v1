@@ -2,8 +2,8 @@
 
 import { prisma } from "../server/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { months } from "../constans";
 import { revalidatePath } from "next/cache";
+import { months } from "../constans";
 
 export async function getSellerStats() {
   try {
