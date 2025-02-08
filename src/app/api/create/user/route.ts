@@ -29,8 +29,8 @@ export async function GET(req: NextRequest) {
       },
     });
     if (newUser) {
-      return NextResponse.redirect(new URL("/", req.url));
-      // return NextResponse.redirect(new URL("/onboarding", req.url));
+      // return NextResponse.redirect(new URL("/", req.url));
+      return NextResponse.redirect(new URL("/onboarding", req.url));
     }
     return NextResponse.json(
       { error: "Error in creating user" },
