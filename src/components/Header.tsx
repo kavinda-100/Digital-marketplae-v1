@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { AlignRight } from "lucide-react";
+import { AlignRight, ChevronDownIcon } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import {
   RegisterLink,
@@ -106,12 +106,15 @@ const Header = ({ role }: HeaderProps) => {
           <div className={"flex items-center justify-center gap-3"}>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className={"cursor-pointer"}>
-                  <AvatarImage src={user.picture ?? ""} />
-                  <AvatarFallback>
-                    {user?.given_name?.charAt(0) ?? randomLetter()}
-                  </AvatarFallback>
-                </Avatar>
+                <div className={"flex cursor-pointer items-center gap-2"}>
+                  <Avatar className={"cursor-pointer"}>
+                    <AvatarImage src={user.picture ?? ""} />
+                    <AvatarFallback>
+                      {user?.given_name?.charAt(0) ?? randomLetter()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <ChevronDownIcon className={"size-3"} />
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
