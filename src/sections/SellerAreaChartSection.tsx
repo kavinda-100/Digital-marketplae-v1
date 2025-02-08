@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { LineChartComponent } from "../components/charts/LineChart";
 import type { ChartConfig } from "../components/ui/chart";
 import { useQuery } from "@tanstack/react-query";
 import { getSellerLineChartData } from "../actions/sellerDashboardActions";
 import LineChartSkeleton from "../skeletons/LineChartSkeleton";
+import SellerAreaChart from "../components/charts/SellerAreaChart";
 
 // const chartData: exampleChartData[] = [
 //   { month: "January", sales: 186, revenue: 500 },
@@ -27,7 +27,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const SellerLineChartSection = () => {
+const SellerAreaChartSection = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["sellerLineChartData"],
     queryFn: getSellerLineChartData,
@@ -37,14 +37,13 @@ const SellerLineChartSection = () => {
       {isLoading ? (
         <LineChartSkeleton />
       ) : (
-        <LineChartComponent
-          chartData={data ?? []}
+        <SellerAreaChart
+          data={data ?? []}
           chartConfig={chartConfig}
-          chartTitle={"Sales & Revenue"}
           error={error}
         />
       )}
     </div>
   );
 };
-export default SellerLineChartSection;
+export default SellerAreaChartSection;

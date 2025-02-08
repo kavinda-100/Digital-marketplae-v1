@@ -5,7 +5,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { getSellerCurruntPlan } from "../../../apiFile/seller";
 import StatsCardSection from "../../../sections/StatsCardSection";
-import SellerLineChartSection from "../../../sections/SellerLineChartSection";
+import SellerAreaChartSection from "../../../sections/SellerAreaChartSection";
 import SellerResentOrdersSideBar from "../../../sections/SellerResentOrdersSideBar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -31,7 +31,7 @@ const Page = async () => {
             }
           >
             <div className={"lg:col-span-2"}>
-              <SellerLineChartSection />
+              <SellerAreaChartSection />
             </div>
             <div className={"lg:col-span-1"}>
               <SellerResentOrdersSideBar />
