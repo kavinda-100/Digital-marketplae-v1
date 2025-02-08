@@ -69,7 +69,7 @@ export async function getUserLineChartData() {
     }
     const orders = await prisma.order.findMany({
       where: {
-        sellerId: user.id,
+        userId: user.id,
       },
       select: {
         amount: true,
