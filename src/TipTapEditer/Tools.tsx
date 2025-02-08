@@ -123,7 +123,7 @@ const Tools = ({ editor }: ToolProps) => {
         return (
           <ToolButton
             active={
-              editor?.isActive(tool.name) ||
+              editor?.isActive(tool.name) ??
               editor?.isActive({ textAlign: tool.name })
             }
             onClick={() => handleToolClick(tool.name)}

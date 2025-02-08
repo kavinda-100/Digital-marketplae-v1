@@ -32,7 +32,7 @@ const DeleteProduct = ({ productId }: { productId: string }) => {
   // });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (Id: string) => DeleteProductAction({ id: productId }),
+    mutationFn: async () => DeleteProductAction({ id: productId }),
     onSuccess: (res) => {
       if (res.success) {
         toast.success(res.message);
@@ -71,7 +71,7 @@ const DeleteProduct = ({ productId }: { productId: string }) => {
           </Button>
           <Button
             variant={"destructive"}
-            onClick={() => mutate(productId)}
+            onClick={() => mutate()}
             disabled={isPending}
           >
             {isPending ? (

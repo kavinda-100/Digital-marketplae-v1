@@ -31,13 +31,11 @@ import { Button } from "../../../../../components/ui/button";
 import { Textarea } from "../../../../../components/ui/textarea";
 import { Skeleton } from "../../../../../components/ui/skeleton";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 const OrderDetailsPage = ({ orderId }: { orderId: string }) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isSecondDialogOpen, setIsSecondDialogOpen] = React.useState(false);
   const [cancellationReason, setCancellationReason] = React.useState("");
-  const router = useRouter();
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({

@@ -8,11 +8,7 @@ import {
   AvatarImage,
 } from "../../../../../components/ui/avatar";
 import React from "react";
-import {
-  cn,
-  formatCurrency,
-  formatDateForTable,
-} from "../../../../../lib/utils";
+import { cn, formatDateForTable } from "../../../../../lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,

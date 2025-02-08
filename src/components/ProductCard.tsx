@@ -9,7 +9,6 @@ import {
 import { Button } from "./ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { formatCurrency } from "../lib/utils";
 import { Pencil } from "lucide-react";
 import DeleteProduct from "./DeleteProduct";
 import PriceTag from "./PriceTag";

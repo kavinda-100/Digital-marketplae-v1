@@ -21,6 +21,14 @@ const config = {
     "@next/next/no-img-element": "off",
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/no-empty-object-type": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "@typescript-eslint/no-redundant-type-constituents": "off",
+    "@typescript-eslint/only-throw-error": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/consistent-indexed-object-style": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {

@@ -10,11 +10,7 @@ import {
 } from "../../../../../components/ui/avatar";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "../../../../../components/ui/button";
-import {
-  cn,
-  formatCurrency,
-  formatDateForTable,
-} from "../../../../../lib/utils";
+import { cn, formatDateForTable } from "../../../../../lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
