@@ -8,7 +8,7 @@ import LineChartSkeleton from "../../../../skeletons/LineChartSkeleton";
 import { UserLineChart } from "./UserLineChart";
 
 const chartConfig = {
-  sales: {
+  amount: {
     label: "Amount",
     color: "hsl(var(--chart-1))",
   },

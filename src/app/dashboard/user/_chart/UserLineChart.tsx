@@ -67,12 +67,7 @@ export function UserLineChart({
               type="natural"
               stroke="var(--color-amount)"
               strokeWidth={2}
-              dot={{
-                fill: "var(--color-amount)",
-              }}
-              activeDot={{
-                r: 6,
-              }}
+              dot={false}
             />
           </LineChart>
         </ChartContainer>
