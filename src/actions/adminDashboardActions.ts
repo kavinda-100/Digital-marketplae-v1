@@ -311,3 +311,94 @@ export async function getAllUsersChartData() {
     throw new Error("Internal Server Error");
   }
 }
+
+export async function getFullOrderDetails(id: string) {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("UnAuthorized");
+    }
+    const data = await prisma.order.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        amount: true,
+        status: true,
+        isPaid: true,
+        userId: true,
+        cancelReason: true,
+        canceledAt: true,
+        createdAt: true,
+        product: {
+          select: {
+            name: true,
+            price: true,
+            productType: true,
+            shortDescription: true,
+            createdAt: true,
+            thumbnail: {
+              select: {
+                url: true,
+              },
+            },
+          },
+        },
+        shippingDetails: {
+          select: {
+            address: true,
+            city: true,
+            state: true,
+            country: true,
+            postalCode: true,
+          },
+        },
+        seller: {
+          select: {
+            name: true,
+            email: true,
+            profilePic: true,
+          },
+        },
+      },
+    });
+    if (!data) {
+      throw new Error("Order not found");
+    }
+    const buyer = await prisma.user.findUnique({
+      where: {
+        kindUserId: data.userId,
+      },
+      select: {
+        name: true,
+        email: true,
+        profilePic: true,
+      },
+    });
+    // formatting the data
+    return {
+      ...data,
+      createdAt: data.createdAt.toString(),
+      product: {
+        ...data.product,
+        thumbnail: data.product.thumbnail.map((image) => image.url),
+        createdAt: data.product.createdAt.toString(),
+      },
+      shippingDetails: {
+        address: data.shippingDetails?.address ?? "N/A",
+        city: data.shippingDetails?.city ?? "N/A",
+        state: data.shippingDetails?.state ?? "N/A",
+        country: data.shippingDetails?.country ?? "N/A",
+        postalCode: data.shippingDetails?.postalCode ?? "N/A",
+      },
+      buyer: {
+        ...buyer,
+      },
+    };
+  } catch (e: unknown) {
+    console.log("Error in getFullOrderDetails", e);
+    throw new Error("Internal Server Error");
+  }
+}
