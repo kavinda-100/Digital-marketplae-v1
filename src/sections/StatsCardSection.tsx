@@ -8,6 +8,7 @@ import {
 } from "../components/ui/card";
 import {
   CircleDollarSign,
+  CircleX,
   CreditCard,
   Handshake,
   ShoppingBag,
@@ -17,9 +18,10 @@ import {
 import { NumberTicker } from "../components/animatios/magicui/NumberTicker";
 import { getSellerStats } from "../actions/sellerDashboardActions";
 import { getAdminStats } from "../actions/adminDashboardActions";
+import { getUserStats } from "../actions/userDashboardActions";
 
 type StatsCardSectionProps = {
-  forWho: "admin" | "seller";
+  forWho: "admin" | "seller" | "user";
 };
 
 const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
@@ -37,6 +39,13 @@ const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
     noOfProducts: 0,
     noOfOrders: 0,
   };
+
+  const UserData = {
+    spentAmount: 0,
+    noOfOrders: 0,
+    noOfOrdersCanceled: 0,
+  };
+
   if (forWho === "seller") {
     const data = await getSellerStats();
     SellerData.revenue = data?.revenue || 0;
@@ -51,6 +60,13 @@ const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
     AdminData.noOfProducts = data?.noOfProducts || 0;
     AdminData.noOfOrders = data?.noOfOrders || 0;
     AdminData.noOfSubscriptions = data?.noOfSubscriptions || 0;
+  }
+
+  if (forWho === "user") {
+    const data = await getUserStats();
+    UserData.spentAmount = data?.spentAmount || 0;
+    UserData.noOfOrders = data?.noOfOrders || 0;
+    UserData.noOfOrdersCanceled = data?.noOfOrdersCanceled || 0;
   }
 
   return (
@@ -82,6 +98,30 @@ const StatsCardSection = async ({ forWho }: StatsCardSectionProps) => {
               value={SellerData.noOfOrders}
               icon={<CreditCard className={"size-4 text-primary"} />}
               isIconShow={false}
+            />
+          </>
+        ) : forWho === "user" ? (
+          <>
+            <SingleStatsCard
+              title={"Orders Made"}
+              description={"No of orders made by you"}
+              value={UserData.noOfOrders}
+              icon={<CreditCard className={"size-4 text-primary"} />}
+              isIconShow={false}
+            />
+            <SingleStatsCard
+              title={"Orders Canceled"}
+              description={"No of orders canceled by you"}
+              value={UserData.noOfOrdersCanceled}
+              icon={<CircleX className={"size-4 text-primary"} />}
+              isIconShow={false}
+            />
+            <SingleStatsCard
+              title={"Spent Amount"}
+              description={"Total amount spent by you"}
+              value={UserData.spentAmount}
+              icon={<CircleDollarSign className={"size-4 text-primary"} />}
+              isIconShow={true}
             />
           </>
         ) : (
@@ -162,7 +202,13 @@ const SingleStatsCard = ({
       <CardContent>
         <div className={"flex items-center justify-start gap-2"}>
           {isIconShow && <span className={"text-3xl font-bold"}>$</span>}
-          <NumberTicker value={value} />
+          {value === 0 ? (
+            <p className={"text-3xl font-bold tabular-nums tracking-wider"}>
+              0
+            </p>
+          ) : (
+            <NumberTicker value={value} />
+          )}
         </div>
       </CardContent>
     </Card>

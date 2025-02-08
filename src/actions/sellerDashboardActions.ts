@@ -7,16 +7,18 @@ import { months } from "../constans";
 
 export async function getSellerStats() {
   try {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-    if (!user) {
-      throw new Error("Unauthorized");
-    }
     const data = {
       revenue: 0,
       noOfProducts: 0,
       noOfOrders: 0,
     };
+
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      console.log("user not found in getSellerStats - unAuthorized");
+      return data;
+    }
 
     const [revenueResult, noOfProductsResult, noOfOrdersResult] =
       await Promise.all([
@@ -53,7 +55,11 @@ export async function getSellerStats() {
     return data;
   } catch (e: unknown) {
     console.log("Error in getSellerStats", e);
-    throw new Error("Internal Server Error");
+    return {
+      revenue: 0,
+      noOfProducts: 0,
+      noOfOrders: 0,
+    };
   }
 }
 

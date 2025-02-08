@@ -30,15 +30,11 @@ const UserPlan = ({ plan }: UserPlanProps) => {
       </CardHeader>
       <CardContent>
         <>
-          {plan === "basic" ||
-            (plan === "pro" && (
-              <Button asChild>
-                <Link href={"/pricing"}>Upgrade</Link>
-              </Button>
-            ))}
-          {plan === "enterprise" && (
-            <Button disabled={plan === "enterprise"}>
-              <Link href={"/pricing"}>Upgrade</Link>
+          {plan === "enterprise" ? (
+            <Button disabled>Upgrade</Button>
+          ) : (
+            <Button asChild>
+              <Link href={"/pricing"}>Upgrade to pro or enterprise</Link>
             </Button>
           )}
         </>

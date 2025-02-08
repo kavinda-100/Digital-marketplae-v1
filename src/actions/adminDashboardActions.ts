@@ -5,11 +5,6 @@ import { prisma } from "../server/db";
 
 export async function getAdminStats() {
   try {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-    if (!user) {
-      throw new Error("Unauthorized");
-    }
     const data = {
       revenue: 0,
       noOfUsers: 0,
@@ -18,6 +13,13 @@ export async function getAdminStats() {
       noOfOrders: 0,
       noOfSubscriptions: 0,
     };
+
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      console.log("User not found in getAdminStats - unAuthorized");
+      return data;
+    }
 
     const [
       revenueResult,
@@ -68,6 +70,13 @@ export async function getAdminStats() {
     return data;
   } catch (e: unknown) {
     console.log("Error in getAdminStats", e);
-    throw new Error("Internal Server Error");
+    return {
+      revenue: 0,
+      noOfUsers: 0,
+      noOfSellers: 0,
+      noOfProducts: 0,
+      noOfOrders: 0,
+      noOfSubscriptions: 0,
+    };
   }
 }
