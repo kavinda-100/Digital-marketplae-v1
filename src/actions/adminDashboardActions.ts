@@ -160,3 +160,42 @@ export async function getAllOrders() {
     throw new Error("Internal Server Error");
   }
 }
+
+export async function getAllUsers() {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("UnAuthorized");
+    }
+    const data = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        profilePic: true,
+        onBoarding: {
+          select: {
+            role: true,
+          },
+        },
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    // formatting the data
+    return data.map((user) => {
+      return {
+        ...user,
+        name: user.name ?? "N/A",
+        role: user.onBoarding?.role,
+        createdAt: user.createdAt.toString(),
+      };
+    });
+  } catch (e: unknown) {
+    console.log("Error in getAllUsers - admin", e);
+    throw new Error("Internal Server Error");
+  }
+}

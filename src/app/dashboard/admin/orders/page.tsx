@@ -12,7 +12,7 @@ const Page = () => {
     <section className={"container mx-auto"}>
       <Card className={"mt-4 border-0 shadow-sm"}>
         <CardHeader>
-          <CardTitle>All Products</CardTitle>
+          <CardTitle>All Orders</CardTitle>
         </CardHeader>
         <CardContent>
           <OrderPage />
