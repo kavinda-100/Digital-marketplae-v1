@@ -1,41 +1,39 @@
 "use client";
 
 import React from "react";
-import type { ChartConfig } from "../../ui/chart";
 import { useQuery } from "@tanstack/react-query";
-import { getRevenueChartData } from "../../../actions/adminDashboardActions";
+import { getAllUsersChartData } from "../../../actions/adminDashboardActions";
 import LineChartSkeleton from "../../../skeletons/LineChartSkeleton";
-import { AreaChartComponent } from "./AreaChart";
+import type { ChartConfig } from "../../ui/chart";
+import UsersAreaChart from "./UsersAreaChart";
 
 const chartConfig = {
-  revenue: {
-    label: "Revenue",
+  users: {
+    label: "Users",
     color: "hsl(var(--chart-1))",
-  },
-  orders: {
-    label: "Orders",
-    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
 
-const AreaChartPage = () => {
+const UsersAreaChartPage = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["revenueChartData"],
-    queryFn: getRevenueChartData,
+    queryKey: ["admin-all-users-ChartData"],
+    queryFn: getAllUsersChartData,
   });
+  console.log(data);
+  console.log(error);
 
   return (
     <div className={"mt-4 w-full"}>
       {isLoading ? (
         <LineChartSkeleton />
       ) : (
-        <AreaChartComponent
+        <UsersAreaChart
           data={data ?? []}
-          chartConfig={chartConfig}
           error={error}
+          chartConfig={chartConfig}
         />
       )}
     </div>
   );
 };
-export default AreaChartPage;
+export default UsersAreaChartPage;

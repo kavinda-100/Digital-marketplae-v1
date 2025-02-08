@@ -3,6 +3,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import StatsCardSection from "../../../sections/StatsCardSection";
 import AreaChartPage from "../../../components/admin/Revenue/AreaChartPage";
+import UsersAreaChartPage from "../../../components/admin/users/UsersAreaChartPage";
 
 const Page = async () => {
   const { getUser } = getKindeServerSession();
@@ -15,6 +16,7 @@ const Page = async () => {
       <h1 className={"text-2xl font-bold"}>Admin Panel</h1>
       <StatsCardSection forWho={"admin"} />
       <AreaChartPage />
+      <UsersAreaChartPage />
     </section>
   );
 };

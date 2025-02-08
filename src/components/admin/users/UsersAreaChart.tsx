@@ -1,7 +1,6 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-
+import React from "react";
 import {
   Card,
   CardContent,
@@ -16,43 +15,21 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../../ui/chart";
-// const chartData = [
-//   { month: "January", desktop: 186, mobile: 80 },
-//   { month: "February", desktop: 305, mobile: 200 },
-//   { month: "March", desktop: 237, mobile: 120 },
-//   { month: "April", desktop: 73, mobile: 190 },
-//   { month: "May", desktop: 209, mobile: 130 },
-//   { month: "June", desktop: 214, mobile: 140 },
-// ];
-//
-// const chartConfig = {
-//   desktop: {
-//     label: "Desktop",
-//     color: "hsl(var(--chart-1))",
-//   },
-//   mobile: {
-//     label: "Mobile",
-//     color: "hsl(var(--chart-2))",
-//   },
-// } satisfies ChartConfig;
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
-type AreaChartComponentProps = {
-  data: { month: string; revenue: number; orders: number }[];
-  chartConfig: ChartConfig;
+type UsersAreaChartProps = {
+  data: { month: string; users: number }[];
   error: Error | null;
+  chartConfig: ChartConfig;
 };
 
-export function AreaChartComponent({
-  data,
-  chartConfig,
-  error,
-}: AreaChartComponentProps) {
+const UsersAreaChart = ({ data, chartConfig, error }: UsersAreaChartProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Revenue</CardTitle>
+        <CardTitle>Users</CardTitle>
         <CardDescription>
-          {`Showing total Revenue for ${new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date().getMonth())} - ${new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date())} ${new Date().getFullYear()}`}
+          {`Showing total Users for ${new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date().getMonth())} - ${new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date())} ${new Date().getFullYear()}`}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -78,19 +55,11 @@ export function AreaChartComponent({
               content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
-              dataKey="revenue"
+              dataKey="users"
               type="natural"
-              fill="var(--color-revenue)"
+              fill="var(--color-users)"
               fillOpacity={0.4}
-              stroke="var(--color-revenue)"
-              stackId="a"
-            />
-            <Area
-              dataKey="orders"
-              type="natural"
-              fill="var(--color-orders)"
-              fillOpacity={0.4}
-              stroke="var(--color-orders)"
+              stroke="var(--color-users)"
               stackId="a"
             />
           </AreaChart>
@@ -108,4 +77,5 @@ export function AreaChartComponent({
       </CardFooter>
     </Card>
   );
-}
+};
+export default UsersAreaChart;
