@@ -5,7 +5,7 @@ import type { ChartConfig } from "../../../../components/ui/chart";
 import { useQuery } from "@tanstack/react-query";
 import { getUserLineChartData } from "../../../../actions/userDashboardActions";
 import LineChartSkeleton from "../../../../skeletons/LineChartSkeleton";
-import { UserLineChart } from "./UserLineChart";
+import UserAreaChart from "./UserAreaChart";
 
 const chartConfig = {
   amount: {
@@ -24,10 +24,9 @@ const Chart = () => {
       {isLoading ? (
         <LineChartSkeleton />
       ) : (
-        <UserLineChart
-          chartData={data ?? []}
+        <UserAreaChart
+          data={data ?? []}
           chartConfig={chartConfig}
-          chartTitle={"Amount"}
           error={error}
         />
       )}
