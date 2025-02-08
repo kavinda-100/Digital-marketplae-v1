@@ -59,3 +59,39 @@ export async function getUserStats() {
     };
   }
 }
+
+export async function getUserLineChartData() {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+    const orders = await prisma.order.findMany({
+      where: {
+        sellerId: user.id,
+      },
+      select: {
+        amount: true,
+        createdAt: true,
+      },
+    });
+    const currentMonthIndex = new Date().getMonth();
+    const chartData: exampleChartData[] = []; // [ { month: "Jan", amount: 0 }, { month: "Feb", amount: 0 }, ... ]
+
+    for (let i = 0; i <= currentMonthIndex; i++) {
+      const month = new Date(0, i).toLocaleString("default", {
+        month: "short",
+      });
+      const amount = orders
+        .filter((order) => order.createdAt.getMonth() === i)
+        .reduce((acc, order) => acc + order.amount, 0);
+      chartData.push({ month, amount });
+    }
+
+    return chartData;
+  } catch (e: unknown) {
+    console.log("error in getUserLineChartData", e);
+    throw new Error("Internal Server Error");
+  }
+}
