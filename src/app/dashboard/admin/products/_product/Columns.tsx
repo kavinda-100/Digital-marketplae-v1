@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "../../../../../components/ui/dropdown-menu";
 import Link from "next/link";
+import PriceTag from "../../../../../components/PriceTag";
 
 type ProductPageColumnsType = {
   id: string;
@@ -89,7 +90,7 @@ export const ProductPageColumns: ColumnDef<ProductPageColumnsType>[] = [
     header: "Price",
     cell: ({ row }) => {
       const price = row.original.price ?? 0;
-      return <p className={"font-mono font-bold"}>{formatCurrency(price)}</p>;
+      return <PriceTag price={price} />;
     },
   },
   {

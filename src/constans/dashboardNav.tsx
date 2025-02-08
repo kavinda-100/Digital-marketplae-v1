@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   ShoppingBasket,
   ShoppingCart,
+  Users,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -51,6 +52,11 @@ export const adminNav: NavLinkType[] = [
     name: "Orders",
     href: "/dashboard/admin/orders",
     icon: <ShoppingBasket />,
+  },
+  {
+    name: "Users",
+    href: "/dashboard/admin/users",
+    icon: <Users />,
   },
 ];
 

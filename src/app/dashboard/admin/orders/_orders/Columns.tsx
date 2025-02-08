@@ -23,6 +23,7 @@ import {
 import { Button } from "../../../../../components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import PriceTag from "../../../../../components/PriceTag";
 
 type OrderColumnsType = {
   id: string;
@@ -76,7 +77,7 @@ export const OrderColumns: ColumnDef<OrderColumnsType>[] = [
     header: "Amount",
     cell: ({ row }) => {
       const amount = row.original.amount ?? 0;
-      return <p className={"font-mono font-bold"}>{formatCurrency(amount)}</p>;
+      return <PriceTag price={amount} />;
     },
   },
   {
