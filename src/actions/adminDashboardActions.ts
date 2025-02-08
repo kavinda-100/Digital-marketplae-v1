@@ -199,3 +199,61 @@ export async function getAllUsers() {
     throw new Error("Internal Server Error");
   }
 }
+
+export async function getRevenueChartData() {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("UnAuthorized");
+    }
+
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    const orders = await prisma.order.groupBy({
+      by: ["createdAt"],
+      _sum: {
+        amount: true,
+      },
+      _count: {
+        _all: true,
+      },
+    });
+
+    const chartData: { month: string; revenue: number; orders: number }[] =
+      months.map((month) => ({
+        month,
+        revenue: 0,
+        orders: 0,
+      }));
+
+    orders.forEach((order) => {
+      const month = new Date(order.createdAt).getMonth();
+      const monthName = months[month];
+      const index = chartData.findIndex((data) => data.month === monthName);
+      if (index !== -1 && order._sum && order._count && chartData[index]) {
+        chartData[index].revenue += order._sum.amount ?? 0;
+        chartData[index].orders += order._count._all ?? 0;
+      }
+    });
+
+    // console.log(chartData);
+    return chartData;
+  } catch (e: unknown) {
+    console.log("Error in getRevenueChartData", e);
+    throw new Error("Internal Server Error");
+  }
+}

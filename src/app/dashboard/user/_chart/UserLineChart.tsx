@@ -41,7 +41,7 @@ export function UserLineChart({
         <CardDescription>{formatDate(new Date())}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className={"max-h-[400px] w-full"}>
           <LineChart
             accessibilityLayer
             data={chartData}
