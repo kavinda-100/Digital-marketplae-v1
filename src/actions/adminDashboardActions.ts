@@ -80,3 +80,83 @@ export async function getAdminStats() {
     };
   }
 }
+
+export async function getAllProducts() {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("UnAuthorized");
+    }
+    const data = await prisma.product.findMany({
+      select: {
+        id: true,
+        sellerId: true,
+        name: true,
+        shortDescription: true,
+        price: true,
+        productType: true,
+        thumbnail: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    // formatting the data
+    return data.map((product) => {
+      return {
+        ...product,
+        thumbnail: product.thumbnail.map((image) => image.url)[0],
+        createdAt: product.createdAt.toString(),
+      };
+    });
+  } catch (e: unknown) {
+    console.log("Error in getAllProducts - admin", e);
+    throw new Error("Internal Server Error");
+  }
+}
+
+export async function getAllOrders() {
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user) {
+      throw new Error("UnAuthorized");
+    }
+    const data = await prisma.order.findMany({
+      select: {
+        id: true,
+        amount: true,
+        status: true,
+        isPaid: true,
+        createdAt: true,
+        product: {
+          select: {
+            name: true,
+            thumbnail: {
+              select: {
+                url: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    // formatting the data
+    return data.map((order) => {
+      return {
+        ...order,
+        productName: order.product.name,
+        thumbnail: order.product.thumbnail.map((image) => image.url)[0],
+        createdAt: order.createdAt.toString(),
+      };
+    });
+  } catch (e: unknown) {
+    console.log("Error in getAllOrders - admin", e);
+    throw new Error("Internal Server Error");
+  }
+}

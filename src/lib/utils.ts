@@ -24,6 +24,14 @@ export function formatDate(date: Date) {
   }).format(date);
 }
 
+export function formatDateForTable(date: Date | string) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  }).format(new Date(date));
+}
+
 export const firstLetterUpperCase = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
