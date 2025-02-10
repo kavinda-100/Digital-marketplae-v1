@@ -39,14 +39,14 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         <body>
-          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <TanStackQueryProvider>
+          <TanStackQueryProvider>
+            <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
               <main
                 className={"container mx-auto flex min-h-screen flex-col p-2"}
               >
@@ -55,8 +55,8 @@ export default async function RootLayout({
                 <Footer />
                 <Toaster richColors closeButton />
               </main>
-            </TanStackQueryProvider>
-          </ThemeProvider>
+            </ThemeProvider>
+          </TanStackQueryProvider>
         </body>
       </html>
     </AuthProvider>
