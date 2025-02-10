@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import {
   Card,
   CardContent,
@@ -18,7 +18,7 @@ import { cn } from "../../../lib/utils";
 import { Button } from "../../../components/ui/button";
 import Link from "next/link";
 
-const SuccessPage = () => {
+function SuccessPageComponent() {
   const [enabled, setEnabled] = React.useState(false);
   const searchParams = useSearchParams();
   const orderId = searchParams?.get("order_id") ?? "";
@@ -162,6 +162,21 @@ const SuccessPage = () => {
         )}
       </div>
     </section>
+  );
+}
+
+const SuccessPage = () => {
+  /**
+   * @description
+   * This is a lazy-loaded component.
+   * this is mandatory to use the lazy loading for the component.
+   * because the component is using the useSearchParams hook.
+   * in Next.js 15, we have to use the lazy loading for the component.
+   **/
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuccessPageComponent />
+    </Suspense>
   );
 };
 export default SuccessPage;
